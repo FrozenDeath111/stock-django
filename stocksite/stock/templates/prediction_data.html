@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<form action="" method="POST">
+    {% csrf_token %}
+    <label class="form-label">Select Trade Code</label>
+    <select class="form-select" name="trade_code" required>
+        <option value="" disabled selected hidden>Please Choose...</option>
+        {% for item in trade_code %}
+        <option value="{{item}}">{{item}}</option>
+        {% endfor %}
+    </select>
+
+    <label class="form-label">Select Data You Want To Predict</label>
+    <select class="form-select" name="pred_type" required>
+        <option value="" disabled selected hidden>Please Choose...</option>
+        <option value="high">High</option>
+        <option value="low">Low</option>
+        <option value="open">Open</option>
+        <option value="close">Close</option>
+    </select>
+
+    <label class="form-label">How Many Days To Look Back When Train The Data</label>
+    <select class="form-select" name="lookback_days" required>
+        <option value="" disabled selected hidden>Please Choose...</option>
+        <option value=1>1</option>
+        <option value=2>2</option>
+        <option value=3>3</option>
+    </select>
+
+    <button type="submit" class="btn btn-secondary">Submit</button>
+</form>
+
+{% if result %}
+    <h3>For {{selected_trade_code}} Result: {{result}} For {{pred_type}} and Look Back Days: {{lookback_days}}</h3>
+{% endif %}
+
+<div class="alert alert-danger" role="alert">
+  Please do not take the value as accurate as the train data is very small and prediction with LSTM for stock price is not a valid and prominent way for prediction. This is just a demonstration of ML use in Stock with LSTM for prediction only...
+</div>
+
+{% endblock %}

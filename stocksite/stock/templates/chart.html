@@ -1,0 +1,51 @@
+<form action="{% url 'index' %}" method="POST">
+    {% csrf_token %}
+    <label class="form-label">Select Chart Type</label>
+    <select class="form-select" name="chart_type" required>
+        <option value="" disabled selected hidden>Please Choose...</option>
+        <option value="candlestick">Candle Stick</option>
+        <option value="line_chart">Line Chart</option>
+        <option value="pie_chart">Pie Chart</option>
+        <option value="sun_burst_chart">Sun-Burst Chart</option>
+        <option value="bar_chart">Bar Chart</option>
+        <option value="bar_line_chart">Bar & Line Chart</option>
+        <option value="3d_chart">3D Chart</option>
+        <option value="all">Total in Line-Chart</option>
+    </select>
+
+    <label class="form-label">Select Trade Code</label>
+    <select class="form-select" name="trade_code">
+        <option value="" disabled selected hidden>Please Choose...</option>
+        {% for item in trade_code %}
+        <option value="{{item}}">{{item}}</option>
+        {% endfor %}
+    </select>
+
+    <h3>For other graphs</h3>
+
+    <label class="form-label">Select For Y Axis</label>
+    <select class="form-select" name="y_axis">
+        <option value="" disabled selected hidden>Please Choose...</option>
+        <option value="high">High</option>
+        <option value="low">Low</option>
+        <option value="open">Open</option>
+        <option value="close">Close</option>
+        <option value="volume">Volume</option>
+    </select>
+
+    <label class="form-label">Select For Z Axis</label>
+    <select class="form-select" name="z_axis">
+        <option value="" disabled selected hidden>Please Choose...</option>
+        <option value="high">High</option>
+        <option value="low">Low</option>
+        <option value="open">Open</option>
+        <option value="close">Close</option>
+        <option value="volume">Volume</option>
+    </select>
+
+    <button type="submit" class="btn btn-secondary">Submit</button>
+</form>
+{% if selected_trade_code %}
+<h4>Chart For: {{selected_trade_code}}</h4>
+{% endif %}
+{{ chart|safe }}
